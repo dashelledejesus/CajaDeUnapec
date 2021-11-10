@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FacturaFinalListForm">
+
+        <p:panel header="#{myBundle.ListFacturaFinalTitle}">
+            <p:contextMenu id="FacturaFinalDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FacturaFinalListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FacturaFinalListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FacturaFinalListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FacturaFinalListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{facturaFinalController.items}"
+                         lazy="false"
+                         rowKey="#{item.idFacturaFinal}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{facturaFinalController.selected}"
+                         filteredValue="#{facturaFinalController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{facturaFinalController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idFacturaFinal}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FacturaFinalDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FacturaFinalDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FacturaFinalListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idFacturaFinal}" filterBy="#{item.idFacturaFinal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idFacturaFinal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idFacturaFinal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idFormaDePago}" filterBy="#{item.idFormaDePago}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idFormaDePago}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idFormaDePago}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idDocumento}" filterBy="#{item.idDocumento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idDocumento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDocumento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idServFacturable}" filterBy="#{item.idServFacturable}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idServFacturable}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idServFacturable}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idModPago}" filterBy="#{item.idModPago}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idModPago}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idModPago}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idCliente}" filterBy="#{item.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFacturaFinalTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idEmpleado}" filterBy="#{item.idEmpleado}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListFacturaFinalTitle_idEmpleado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEmpleado}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{facturaFinalController.prepareCreate}" update=":FacturaFinalCreateForm" oncomplete="PF('FacturaFinalCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FacturaFinalViewForm" oncomplete="PF('FacturaFinalViewDialog').show()" disabled="#{empty facturaFinalController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FacturaFinalEditForm" oncomplete="PF('FacturaFinalEditDialog').show()" disabled="#{empty facturaFinalController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{facturaFinalController.delete}" update=":growl,datalist" disabled="#{empty facturaFinalController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

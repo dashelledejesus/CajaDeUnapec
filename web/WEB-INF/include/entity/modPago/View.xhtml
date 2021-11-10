@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ModPagoViewDlg" widgetVar="ModPagoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewModPagoTitle}" closeOnEscape="true">
+
+            <h:form id="ModPagoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{modPagoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewModPagoLabel_idModPago}"/>
+                        <h:outputText value="#{modPagoController.selected.idModPago}" title="#{myBundle.ViewModPagoTitle_idModPago}"/>
+
+                        <h:outputText value="#{myBundle.ViewModPagoLabel_estadoModPago}"/>
+                        <h:outputText value="#{modPagoController.selected.estadoModPago}" title="#{myBundle.ViewModPagoTitle_estadoModPago}"/>
+
+                        <h:outputText value="#{myBundle.ViewModPagoLabel_estadosModPago}"/>
+                        <h:outputText value="#{modPagoController.selected.estadosModPago}" title="#{myBundle.ViewModPagoTitle_estadosModPago}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ModPagoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

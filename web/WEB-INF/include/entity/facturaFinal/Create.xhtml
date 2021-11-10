@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaFinalCreateDlg" widgetVar="FacturaFinalCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateFacturaFinalTitle}" closeOnEscape="true">
+
+            <h:form id="FacturaFinalCreateForm">
+
+                <h:panelGroup id="display" rendered="#{facturaFinalController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idFacturaFinal}" for="idFacturaFinal" />
+                        <p:inputText id="idFacturaFinal" value="#{facturaFinalController.selected.idFacturaFinal}" title="#{myBundle.CreateFacturaFinalTitle_idFacturaFinal}" required="true" requiredMessage="#{myBundle.CreateFacturaFinalRequiredMessage_idFacturaFinal}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idFormaDePago}" for="idFormaDePago" />
+                        <p:inputText id="idFormaDePago" value="#{facturaFinalController.selected.idFormaDePago}" title="#{myBundle.CreateFacturaFinalTitle_idFormaDePago}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idDocumento}" for="idDocumento" />
+                        <p:inputText id="idDocumento" value="#{facturaFinalController.selected.idDocumento}" title="#{myBundle.CreateFacturaFinalTitle_idDocumento}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idServFacturable}" for="idServFacturable" />
+                        <p:inputText id="idServFacturable" value="#{facturaFinalController.selected.idServFacturable}" title="#{myBundle.CreateFacturaFinalTitle_idServFacturable}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idModPago}" for="idModPago" />
+                        <p:inputText id="idModPago" value="#{facturaFinalController.selected.idModPago}" title="#{myBundle.CreateFacturaFinalTitle_idModPago}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idCliente}" for="idCliente" />
+                        <p:inputText id="idCliente" value="#{facturaFinalController.selected.idCliente}" title="#{myBundle.CreateFacturaFinalTitle_idCliente}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFacturaFinalLabel_idEmpleado}" for="idEmpleado" />
+                        <p:inputText id="idEmpleado" value="#{facturaFinalController.selected.idEmpleado}" title="#{myBundle.CreateFacturaFinalTitle_idEmpleado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaFinalController.saveNew}" value="#{myBundle.Save}" update="display,:FacturaFinalListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FacturaFinalCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('FacturaFinalCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

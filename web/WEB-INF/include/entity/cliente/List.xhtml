@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ClienteListForm">
+
+        <p:panel header="#{myBundle.ListClienteTitle}">
+            <p:contextMenu id="ClienteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ClienteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ClienteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ClienteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ClienteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{clienteController.items}"
+                         lazy="false"
+                         rowKey="#{item.idCliente}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{clienteController.selected}"
+                         filteredValue="#{clienteController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{clienteController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idCliente}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ClienteDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ClienteDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ClienteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idCliente}" filterBy="#{item.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreCliente}" filterBy="#{item.nombreCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_nombreCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tipoCliente}" filterBy="#{item.tipoCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_tipoCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.carreraCliente}" filterBy="#{item.carreraCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_carreraCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.carreraCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estadoCliente}" filterBy="#{item.estadoCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_estadoCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoCliente}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{clienteController.delete}" update=":growl,datalist" disabled="#{empty clienteController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

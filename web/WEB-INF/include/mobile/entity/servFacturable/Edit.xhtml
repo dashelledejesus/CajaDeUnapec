@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ServFacturableEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditServFacturableTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ServFacturableListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ServFacturableEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{servFacturableController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditServFacturableLabel_idServFacturable}" for="idServFacturable" />
+                            <h:outputText id="idServFacturable" value="#{servFacturableController.selected.idServFacturable}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditServFacturableLabel_descripcionServFacturable}" for="descripcionServFacturable" />
+                            <p:inputText id="descripcionServFacturable" value="#{servFacturableController.selected.descripcionServFacturable}" title="#{myBundle.EditServFacturableTitle_descripcionServFacturable}" size="60" maxlength="60"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditServFacturableLabel_estadoServFacturables}" for="estadoServFacturables" />
+                            <p:inputText id="estadoServFacturables" value="#{servFacturableController.selected.estadoServFacturables}" title="#{myBundle.EditServFacturableTitle_estadoServFacturables}" size="20" maxlength="20"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{servFacturableController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ServFacturableListPage:ServFacturableListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ServFacturableListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

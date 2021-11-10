@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EmpleadoListForm">
+
+        <p:panel header="#{myBundle.ListEmpleadoTitle}">
+            <p:contextMenu id="EmpleadoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EmpleadoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EmpleadoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EmpleadoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmpleadoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{empleadoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idCliente}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{empleadoController.selected}"
+                         filteredValue="#{empleadoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{empleadoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idCliente}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpleadoDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmpleadoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idCliente}" filterBy="#{item.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreEmpleado}" filterBy="#{item.nombreEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_nombreEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreEmpleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cedulaEmpleado}" filterBy="#{item.cedulaEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_cedulaEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cedulaEmpleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tandaEmpleado}" filterBy="#{item.tandaEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_tandaEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tandaEmpleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaIngresoEmpleado}" filterBy="#{item.fechaIngresoEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_fechaIngresoEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaIngresoEmpleado}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estadoEmpleado}" filterBy="#{item.estadoEmpleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_estadoEmpleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoEmpleado}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{empleadoController.delete}" update=":growl,datalist" disabled="#{empty empleadoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

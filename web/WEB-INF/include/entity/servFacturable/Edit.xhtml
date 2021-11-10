@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ServFacturableEditDlg" widgetVar="ServFacturableEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditServFacturableTitle}" closeOnEscape="true">
+
+            <h:form id="ServFacturableEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{servFacturableController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditServFacturableLabel_idServFacturable}" for="idServFacturable" />
+                        <h:outputText id="idServFacturable" value="#{servFacturableController.selected.idServFacturable}" />
+
+                        <p:outputLabel value="#{myBundle.EditServFacturableLabel_descripcionServFacturable}" for="descripcionServFacturable" />
+                        <p:inputText id="descripcionServFacturable" value="#{servFacturableController.selected.descripcionServFacturable}" title="#{myBundle.EditServFacturableTitle_descripcionServFacturable}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{myBundle.EditServFacturableLabel_estadoServFacturables}" for="estadoServFacturables" />
+                        <p:inputText id="estadoServFacturables" value="#{servFacturableController.selected.estadoServFacturables}" title="#{myBundle.EditServFacturableTitle_estadoServFacturables}" size="20" maxlength="20"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{servFacturableController.save}" value="#{myBundle.Save}" update="display,:ServFacturableListForm:datalist,:ServFacturableListForm:ServFacturableDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ServFacturableEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ServFacturableEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

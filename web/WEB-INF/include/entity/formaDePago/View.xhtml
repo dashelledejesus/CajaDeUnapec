@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FormaDePagoViewDlg" widgetVar="FormaDePagoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewFormaDePagoTitle}" closeOnEscape="true">
+
+            <h:form id="FormaDePagoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{formaDePagoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewFormaDePagoLabel_idFormaDePago}"/>
+                        <h:outputText value="#{formaDePagoController.selected.idFormaDePago}" title="#{myBundle.ViewFormaDePagoTitle_idFormaDePago}"/>
+
+                        <h:outputText value="#{myBundle.ViewFormaDePagoLabel_descripcionFormaDePago}"/>
+                        <h:outputText value="#{formaDePagoController.selected.descripcionFormaDePago}" title="#{myBundle.ViewFormaDePagoTitle_descripcionFormaDePago}"/>
+
+                        <h:outputText value="#{myBundle.ViewFormaDePagoLabel_estadoFormaDePago}"/>
+                        <h:outputText value="#{formaDePagoController.selected.estadoFormaDePago}" title="#{myBundle.ViewFormaDePagoTitle_estadoFormaDePago}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('FormaDePagoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

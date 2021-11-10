@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EmpleadoViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewEmpleadoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EmpleadoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EmpleadoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{empleadoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_idCliente}"/>
+                            <h:outputText value="#{empleadoController.selected.idCliente}" title="#{myBundle.ViewEmpleadoTitle_idCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_nombreEmpleado}"/>
+                            <h:outputText value="#{empleadoController.selected.nombreEmpleado}" title="#{myBundle.ViewEmpleadoTitle_nombreEmpleado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_cedulaEmpleado}"/>
+                            <h:outputText value="#{empleadoController.selected.cedulaEmpleado}" title="#{myBundle.ViewEmpleadoTitle_cedulaEmpleado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_tandaEmpleado}"/>
+                            <h:outputText value="#{empleadoController.selected.tandaEmpleado}" title="#{myBundle.ViewEmpleadoTitle_tandaEmpleado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_fechaIngresoEmpleado}"/>
+                            <h:outputText value="#{empleadoController.selected.fechaIngresoEmpleado}" title="#{myBundle.ViewEmpleadoTitle_fechaIngresoEmpleado}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpleadoLabel_estadoEmpleado}"/>
+                            <h:outputText value="#{empleadoController.selected.estadoEmpleado}" title="#{myBundle.ViewEmpleadoTitle_estadoEmpleado}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmpleadoEditDlg" widgetVar="EmpleadoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEmpleadoTitle}" closeOnEscape="true">
+
+            <h:form id="EmpleadoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{empleadoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditEmpleadoLabel_idCliente}" for="idCliente" />
+                        <h:outputText id="idCliente" value="#{empleadoController.selected.idCliente}" />
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_nombreEmpleado}" for="nombreEmpleado" />
+                        <p:inputText id="nombreEmpleado" value="#{empleadoController.selected.nombreEmpleado}" title="#{myBundle.EditEmpleadoTitle_nombreEmpleado}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_cedulaEmpleado}" for="cedulaEmpleado" />
+                        <p:inputText id="cedulaEmpleado" value="#{empleadoController.selected.cedulaEmpleado}" title="#{myBundle.EditEmpleadoTitle_cedulaEmpleado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_tandaEmpleado}" for="tandaEmpleado" />
+                        <p:inputText id="tandaEmpleado" value="#{empleadoController.selected.tandaEmpleado}" title="#{myBundle.EditEmpleadoTitle_tandaEmpleado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_fechaIngresoEmpleado}" for="fechaIngresoEmpleado" />
+                        <p:calendar id="fechaIngresoEmpleado" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaIngresoEmpleado}" title="#{myBundle.EditEmpleadoTitle_fechaIngresoEmpleado}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_estadoEmpleado}" for="estadoEmpleado" />
+                        <p:inputText id="estadoEmpleado" value="#{empleadoController.selected.estadoEmpleado}" title="#{myBundle.EditEmpleadoTitle_estadoEmpleado}" size="20" maxlength="20"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empleadoController.save}" value="#{myBundle.Save}" update="display,:EmpleadoListForm:datalist,:EmpleadoListForm:EmpleadoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpleadoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EmpleadoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

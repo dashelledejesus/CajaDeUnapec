@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ClienteViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewClienteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ClienteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{clienteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewClienteLabel_idCliente}"/>
+                            <h:outputText value="#{clienteController.selected.idCliente}" title="#{myBundle.ViewClienteTitle_idCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewClienteLabel_nombreCliente}"/>
+                            <h:outputText value="#{clienteController.selected.nombreCliente}" title="#{myBundle.ViewClienteTitle_nombreCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewClienteLabel_tipoCliente}"/>
+                            <h:outputText value="#{clienteController.selected.tipoCliente}" title="#{myBundle.ViewClienteTitle_tipoCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewClienteLabel_carreraCliente}"/>
+                            <h:outputText value="#{clienteController.selected.carreraCliente}" title="#{myBundle.ViewClienteTitle_carreraCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewClienteLabel_estadoCliente}"/>
+                            <h:outputText value="#{clienteController.selected.estadoCliente}" title="#{myBundle.ViewClienteTitle_estadoCliente}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

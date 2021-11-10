@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ModPagoEditDlg" widgetVar="ModPagoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditModPagoTitle}" closeOnEscape="true">
+
+            <h:form id="ModPagoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{modPagoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditModPagoLabel_idModPago}" for="idModPago" />
+                        <h:outputText id="idModPago" value="#{modPagoController.selected.idModPago}" />
+
+                        <p:outputLabel value="#{myBundle.EditModPagoLabel_estadoModPago}" for="estadoModPago" />
+                        <p:inputText id="estadoModPago" value="#{modPagoController.selected.estadoModPago}" title="#{myBundle.EditModPagoTitle_estadoModPago}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditModPagoLabel_estadosModPago}" for="estadosModPago" />
+                        <p:inputText id="estadosModPago" value="#{modPagoController.selected.estadosModPago}" title="#{myBundle.EditModPagoTitle_estadosModPago}" size="20" maxlength="20"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modPagoController.save}" value="#{myBundle.Save}" update="display,:ModPagoListForm:datalist,:ModPagoListForm:ModPagoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ModPagoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ModPagoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

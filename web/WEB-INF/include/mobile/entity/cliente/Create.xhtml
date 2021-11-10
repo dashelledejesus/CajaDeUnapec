@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ClienteCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateClienteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ClienteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ClienteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{clienteController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateClienteLabel_idCliente}" for="idCliente" />
+                            <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{myBundle.CreateClienteTitle_idCliente}" required="true" requiredMessage="#{myBundle.CreateClienteRequiredMessage_idCliente}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateClienteLabel_nombreCliente}" for="nombreCliente" />
+                            <p:inputText id="nombreCliente" value="#{clienteController.selected.nombreCliente}" title="#{myBundle.CreateClienteTitle_nombreCliente}" size="40" maxlength="40"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateClienteLabel_tipoCliente}" for="tipoCliente" />
+                            <p:inputText id="tipoCliente" value="#{clienteController.selected.tipoCliente}" title="#{myBundle.CreateClienteTitle_tipoCliente}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateClienteLabel_carreraCliente}" for="carreraCliente" />
+                            <p:inputText id="carreraCliente" value="#{clienteController.selected.carreraCliente}" title="#{myBundle.CreateClienteTitle_carreraCliente}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateClienteLabel_estadoCliente}" for="estadoCliente" />
+                            <p:inputText id="estadoCliente" value="#{clienteController.selected.estadoCliente}" title="#{myBundle.CreateClienteTitle_estadoCliente}" size="10" maxlength="10"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{clienteController.saveNew}" value="#{myBundle.Save}" update="display,:ClienteListPage:ClienteListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ClienteListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

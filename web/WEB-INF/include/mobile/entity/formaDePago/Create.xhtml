@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="FormaDePagoCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateFormaDePagoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:FormaDePagoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="FormaDePagoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{formaDePagoController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFormaDePagoLabel_idFormaDePago}" for="idFormaDePago" />
+                            <p:inputText id="idFormaDePago" value="#{formaDePagoController.selected.idFormaDePago}" title="#{myBundle.CreateFormaDePagoTitle_idFormaDePago}" required="true" requiredMessage="#{myBundle.CreateFormaDePagoRequiredMessage_idFormaDePago}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFormaDePagoLabel_descripcionFormaDePago}" for="descripcionFormaDePago" />
+                            <p:inputText id="descripcionFormaDePago" value="#{formaDePagoController.selected.descripcionFormaDePago}" title="#{myBundle.CreateFormaDePagoTitle_descripcionFormaDePago}" size="40" maxlength="40"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFormaDePagoLabel_estadoFormaDePago}" for="estadoFormaDePago" />
+                            <p:inputText id="estadoFormaDePago" value="#{formaDePagoController.selected.estadoFormaDePago}" title="#{myBundle.CreateFormaDePagoTitle_estadoFormaDePago}" size="20" maxlength="20"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{formaDePagoController.saveNew}" value="#{myBundle.Save}" update="display,:FormaDePagoListPage:FormaDePagoListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:FormaDePagoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

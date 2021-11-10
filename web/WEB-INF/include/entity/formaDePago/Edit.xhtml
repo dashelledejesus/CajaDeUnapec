@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="FormaDePagoEditDlg" widgetVar="FormaDePagoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditFormaDePagoTitle}" closeOnEscape="true">
+
+            <h:form id="FormaDePagoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{formaDePagoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditFormaDePagoLabel_idFormaDePago}" for="idFormaDePago" />
+                        <h:outputText id="idFormaDePago" value="#{formaDePagoController.selected.idFormaDePago}" />
+
+                        <p:outputLabel value="#{myBundle.EditFormaDePagoLabel_descripcionFormaDePago}" for="descripcionFormaDePago" />
+                        <p:inputText id="descripcionFormaDePago" value="#{formaDePagoController.selected.descripcionFormaDePago}" title="#{myBundle.EditFormaDePagoTitle_descripcionFormaDePago}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditFormaDePagoLabel_estadoFormaDePago}" for="estadoFormaDePago" />
+                        <p:inputText id="estadoFormaDePago" value="#{formaDePagoController.selected.estadoFormaDePago}" title="#{myBundle.EditFormaDePagoTitle_estadoFormaDePago}" size="20" maxlength="20"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{formaDePagoController.save}" value="#{myBundle.Save}" update="display,:FormaDePagoListForm:datalist,:FormaDePagoListForm:FormaDePagoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormaDePagoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('FormaDePagoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
